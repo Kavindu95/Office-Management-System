@@ -25,7 +25,17 @@ con.connect(function(err) {
 app.get('/', (req, res) => {
   res.send('Hello World new node project!')
 })
+//Get Employees
 
+app.get('/getEmployee', (req, res) => {
+    const sql = "SELECT * FROM employee";
+    con.query(sql, (err, result) => {
+        if(err) return res.json({Error: "Get employee error in sql"});
+        return res.json({Result: result})
+    })
+})
+
+//Enroll Employees
 app.post('/create',(req,res)=>{
     const name = req.body.name;
     const address = req.body.address;
