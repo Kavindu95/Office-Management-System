@@ -25,6 +25,18 @@ con.connect(function(err) {
 app.get('/', (req, res) => {
   res.send('Hello World new node project!')
 })
+
+//filter by id
+
+app.get('/get/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM employee where id = ?";
+    con.query(sql, [id], (err, result) => {
+        if(err) return res.json({Error: "Get employee error in sql"});
+        return res.json({Status: "Success", Result: result})
+    })
+})
+
 //Get Employees
 
 app.get('/getEmployee', (req, res) => {
