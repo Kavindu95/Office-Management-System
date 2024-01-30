@@ -1,3 +1,5 @@
+//Backend(Node JS)
+
 const express = require("express");
 const mysql = require("mysql2");
 const bcrypt = require('bcrypt'); // https://www.npmjs.com/package/bcrypt npm i bcrypt
