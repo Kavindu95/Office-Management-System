@@ -37,6 +37,22 @@ app.get('/get/:id', (req, res) => {
     })
 })
 
+//delete
+app.delete("/delete/:id",(req,res)=>{
+    const id=req.params.id;
+    const sql="DELETE from employee WHERE id = ?"
+
+    con.query(sql,[id],(err,result)=>{
+        if(err) return res.json({Error: "Delete Error!!"})
+        return res.json({Status: "Deleted Successfully!"})
+
+    })
+
+})
+
+
+
+
 //update
 app.put("/update/:id",(req,res)=>{
     const userId=req.params.id;
