@@ -21,7 +21,7 @@ con.connect(function(err) {
     }
 })
  
-
+//test
 app.get('/', (req, res) => {
   res.send('Hello World new node project!')
 })
@@ -36,6 +36,26 @@ app.get('/get/:id', (req, res) => {
         return res.json({Status: "Success", Result: result})
     })
 })
+
+//update
+app.put("/update/:id",(req,res)=>{
+    const userId=req.params.id;
+    const sql="UPDATE employee SET `name`=?, `address`=?, `contact`=? WHERE id=?";
+
+    const values=[
+        req.body.name,
+        req.body.address,
+        req.body.contact
+    ];
+
+    con.query(sql,[...values,userId], (err,data)=>{
+        if(err) return res.send(err);
+        return res.json(data);
+    })
+
+    })
+
+
 
 //Get Employees
 
