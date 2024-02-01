@@ -154,12 +154,11 @@ app.post("/login", (req, res) => {
   });
 });
 
-
-
+//connect with mongoDB
 
 const start= async()=>{
   try {
-    await mongoose.connect('mongodb+srv://user:7788@atlascluster.rtzym6d.mongodb.net/?retryWrites=true&w=majority'); 
+    await mongoose.connect('mongodb+srv://kavindu:7788@ems-app.95fosvl.mongodb.net/?retryWrites=true&w=majority'); 
 
     app.listen(port, () => {
       console.log(`App listening on port ${port}`);
