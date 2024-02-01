@@ -4,10 +4,15 @@ const express = require("express");
 const mysql = require("mysql2");
 const bcrypt = require('bcrypt'); // https://www.npmjs.com/package/bcrypt npm i bcrypt
 var jwt = require('jsonwebtoken'); //https://github.com/auth0/node-jsonwebtoken npm install jsonwebtoken
+const cors = require("cors");
+const mongoose = require("mongoose");
 const app = express();
-const port = 3000;
+mongoose.set('strictQuery', false);
+
+const port = 3001;
 
 app.use(express.json());
+app.use(cors());
 
 const con = mysql.createConnection({
   user: "root",
@@ -47,7 +52,7 @@ app.delete("/delete/:id", (req, res) => {
 
   con.query(sql, [id], (err, result) => {
     if (err) return res.json({ Error: "Delete Error!!" });
-    return res.json({ Status: "Deleted Successfully!" });
+    return res.json({ Status: "Success" });
   });
 });
 
@@ -71,7 +76,7 @@ app.get("/getEmployee", (req, res) => {
   const sql = "SELECT * FROM employee";
   con.query(sql, (err, result) => {
     if (err) return res.json({ Error: "Get employee error in sql" });
-    return res.json({ Result: result });
+    return res.json({Status: "Success", Result: result });
   });
 });
 
@@ -149,6 +154,21 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+
+
+
+const start= async()=>{
+  try {
+    await mongoose.connect('mongodb+srv://user:7788@atlascluster.rtzym6d.mongodb.net/?retryWrites=true&w=majority'); 
+
+    app.listen(port, () => {
+      console.log(`App listening on port ${port}`);
+    });
+    
+  } catch (error) {
+    console.log(error.message)
+  }
+ 
+};
+
+start();
